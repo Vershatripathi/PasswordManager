@@ -11,7 +11,7 @@ const Manager = () => {
   const [passwordArray, setPasswordArray] = useState([]);
 
 const getPasswords=async ()=>{
-    let req=await fetch("http://localhost:3000/")
+    let req=await fetch("https://passwordmanagerbackend-fm5u.onrender.com/")
     const passwords = await req.json()
     setPasswordArray(passwords);
     console.log(passwords)
@@ -45,13 +45,13 @@ const getPasswords=async ()=>{
   const savePassword = async() => {
   if (form.site.length > 3 && form.username.length > 3 && form.password.length > 3) {
     // if any such id exists ,delete it
-          await fetch("http://localhost:3000/",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:form.id})})
+          await fetch("https://passwordmanagerbackend-fm5u.onrender.com/",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:form.id})})
     
     const newPassword = { ...form, id: uuidv4() };
     const updatedArray = [...passwordArray, newPassword];
     setPasswordArray(updatedArray);
 
-    await fetch("http://localhost:3000/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(newPassword)})
+    await fetch("https://passwordmanagerbackend-fm5u.onrender.com/",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(newPassword)})
    
     //localStorage.setItem("passwords", JSON.stringify(updatedArray));
     setForm({ site: "", username: "", password: "" });
@@ -77,7 +77,7 @@ const getPasswords=async ()=>{
       const updated = passwordArray.filter(item => item.id !== id);
       setPasswordArray(updated);
       //localStorage.setItem("passwords", JSON.stringify(updated));
-      await fetch("http://localhost:3000/",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})})
+      await fetch("https://passwordmanagerbackend-fm5u.onrender.com/",{method:"DELETE",headers:{"Content-Type":"application/json"},body:JSON.stringify({id})})
       toast('Password Deleted!', {
         position: "top-right",
         autoClose: 5000,
